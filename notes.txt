@@ -1,0 +1,23 @@
+eloworld notes
+--------------
+
+2 dimensional world on a Cartesian grid
+Mobile game-playing agents with various attributes:
+  ELO rating (default 1000) <- Perceived skill
+  Ranking (A,B,C,D,E,F, based on ELO rating)
+  Actual skill
+  Whim - modifier chance that they'll accept any encounter
+
+Agents' actual skill, for simplicity, is constant
+Agents' ELO rating is calculated on every encounter
+Agents may refuse a game
+Agents actively seek out players who are higher ranked.
+
+Encounters are simple games, either Zero-Sum or otherwise.
+Game does not have to be implemented, only the results.
+
+Modules:
+  World
+  Agent
+  Game
+
