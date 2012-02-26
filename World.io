@@ -25,13 +25,18 @@ World := Object clone do(
   draw := method(
     self updateOutVector
     self outVector foreach(i,x,
-      writeln(x join)
+      writeln(x join(" "))
     )
     self
   )
   
   atPutOutVector := method(pos, v,
-    self outVector at(pos second) atPut(pos first, v)
+    //if(self outVector at(pos second) at(pos first) == ".",
+      self outVector at(pos second) atPut(pos first, v)
+      //,
+      //self outVector at(pos second) atPut(pos first, "%")
+    //)
+    self
   )
   
   updateOutVector := method(
@@ -49,8 +54,9 @@ World := Object clone do(
   tick := method(
     self tickCount = self tickCount + 1
     self agentList foreach(agent,
-      agent act(self tickCount)
+      agent @act(self tickCount)
     )
+    Scheduler waitForCorosToComplete
     self
   )
   
