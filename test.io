@@ -3,8 +3,8 @@
 // eloworld - test
 // Jacob Peck
 
-a := Agent with(0.9, 0.6)
-b := Agent with(0.9, 0.6)
+a := Agent with(0.9, 0.6, 1000)
+b := Agent with(0.2, 0.6, 1000)
 //c := Agent with(0.9, 0.6)
 
 2000 repeat(

@@ -1,6 +1,6 @@
 #!/usr/bin/env io
 
-// eloworld - test2
+// eloworld - test3 (runs continuously)
 // Jacob Peck
 
 low := method(
@@ -21,24 +21,21 @@ high := method(
   )
 )
 
-low low med med high high
+5 repeat(low)
+5 repeat(med)
+5 repeat(high)
+
+i := 0
 
 loop(
+  i = i + 1
   World draw tick
   writeln
   World summarize
   writeln
-  in := File standardInput readLine
-  if(in == "h",
-    high
-  )
-  if(in == "m",
-    med
-  )
-  if(in == "l",
+  if(i % 100 == 0,
     low
-  )
-  if(in == "q",
-    break
+    med
+    high
   )
 )
