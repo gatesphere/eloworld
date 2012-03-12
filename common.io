@@ -17,6 +17,10 @@ highAgent := method(
   agent(Random value(0.6, 1.0), Random value(0, 1), Random value(1800, 2600))
 )
 
+randomAgentSetElo := method(
+  agent(Random value(0, 1), Random value(0, 1), 1000)
+)
+
 low := method(
   5 repeat(
     World addAgent(lowAgent)
@@ -32,5 +36,11 @@ med := method(
 high := method(
   5 repeat(
     World addAgent(highAgent)
+  )
+)
+
+setRandom := method(
+  5 repeat(
+    World addAgent(randomAgentSetElo)
   )
 )
