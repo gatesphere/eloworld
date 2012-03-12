@@ -144,7 +144,7 @@ Agent := Object clone do(
     if(r == "C", d = 400)
     if(r == "B", d = 200)
     if(r == "A", d = 100)
-    r
+    d
   )
   
   game := method(turn,
