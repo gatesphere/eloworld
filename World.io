@@ -25,7 +25,7 @@ World := Object clone do(
   draw := method(
     self updateOutVector
     self outVector foreach(i,x,
-      writeln(x join(" "))
+      writeln(x join(""))
     )
     self
   )

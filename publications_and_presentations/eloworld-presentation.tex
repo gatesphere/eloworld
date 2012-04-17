@@ -1,0 +1,177 @@
+% Eloworld
+% Jacob Peck
+% COG 499 - Models of Complexity - Vampola
+% 20120312
+
+\documentclass[12pt]{beamer}
+\usetheme{Warsaw}
+\usepackage{bera}
+%\usepackage[all]{xy}
+
+\begin{document}
+
+\title{Eloworld - a game-theoretic simulation of social grouping}
+\author{Jacob M. Peck}
+\date{March 23, 2012}
+\maketitle
+
+\section{Preliminaries}
+\subsection{Some terminology}
+\begin{frame}{Some terminology}
+  \begin{description}
+    \item[Intelligent agents] are ``autonomous entit[ies] which observe through sensors and act upon an environment using actuators ... and direct [their] activity towards achieving goals.''
+    \item[Social capital] is ``the value of social relations and the role of cooperation and confidence to get collective or economic results.''
+    \item[Social grouping] is ``two or more humans who interact with one another, share similar characteristics and collectively have a sense of unity.''
+  \end{description}
+\end{frame}
+
+\subsection{What is Eloworld?}
+\begin{frame}{What is Eloworld?}
+  \begin{itemize}
+    \item A game-theoretic simulation of social grouping 
+    \item An experiment in computational modelling 
+    \item An exploration of swarm based intelligence
+    \item An examination of the ELO rating system
+  \end{itemize}
+\end{frame}
+
+\section{Architecture}
+\subsection{The World}
+\begin{frame}{The World}
+  \begin{itemize}
+    \item A two-dimensional Cartesian plane
+    \item Finite in both dimensions
+    \item Non-toroidal
+    \item Obstacle and collision free
+  \end{itemize}
+\end{frame}
+
+\subsection{The Game}
+\begin{frame}{The Game}
+  \begin{itemize}
+    \item Zero-sum (qualitatively)
+    \item Glorified dice rolls, with a bias
+    \begin{itemize}
+      \item Each player has a true skill in the range (0 .. 1)
+      \item Each player then makes a roll in the range (true skill .. 1)
+      \item The players add their true skill to their roll, and compare 
+      \begin{itemize}
+        \item If difference of scores <= 0.1, draw (each earns .5 points)
+        \item Else, higher score gains 1 point, lower score gains 0 points.
+      \end{itemize}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\subsection{The ELO Rating System}
+\begin{frame}{The ELO Rating System}
+  \begin{itemize}
+    \item A simple numeric rating of so-called ``proven skill''
+    \item Devised by Arpad Elo for competitive Chess
+  \end{itemize}
+  \begin{block}{Mathematical details}
+    Expected score for player $A$ facing player $B$ is (0 .. 1):
+    \begin{center}
+    $E_A = \frac 1 {1 + 10^{(R_B - R_A)/400}}$
+    \end{center}
+    Adjusted rating for player $A$ after a game with player $B$:
+    \begin{center}
+    $R_A^\prime = R_A + K(S_A - E_A)$
+    \end{center}
+    Where $K$ is a sliding constant based upon the player's current ELO rating.
+  \end{block}
+\end{frame}
+
+\subsection{The Agents}
+\begin{frame}{The Agents}
+  \begin{itemize}
+    \item Consist of various properties:
+    \begin{itemize}
+      \item position (x,y)
+      \item current ELO score
+      \begin{itemize}
+        \item letter-grade ranking
+        \item current $K$-value
+        \item differential
+      \end{itemize}
+      \item true skill (0..1)
+      \item whim (0..1)
+      \item number of games played
+      \item list of recently played opponents
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{The Agents}
+  \begin{itemize}
+    \item Simple behavior:
+    \begin{itemize}
+      \item Find target
+      \begin{itemize}
+        \item Look at every agent's ELO
+        \item Find the highest ranked player within differential
+        \item Reject if in the recently played list
+      \end{itemize}
+      \item Move towards target
+      \begin{itemize}
+        \item If no valid target, move in a random direction
+      \end{itemize}
+      \item If in same location as target, challenge to a game
+      \begin{itemize}
+        \item If within target's differential, a game is played
+        \item Else, if target's whim roll is high, play a game
+        \item Else, target rejects, no game is played
+      \end{itemize}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\section{Application}
+\subsection{Results}
+\begin{frame}{Results}
+  \begin{itemize}
+    \item Emergence
+    \begin{itemize}
+      \item Agents actively strive to increase and protect their ELO rating
+      \item Agents vary game playing partners
+    \end{itemize}
+    \item Convergence
+    \begin{itemize}
+      \item Agents tend to converge around the center of the world
+      \item Such convergence leads to one large social group
+    \end{itemize}
+    \item Social mobility
+    \begin{itemize}
+      \item Agents are able to move through social classes by way of changing ELO ratings
+      \item Agents act in a way that mirrors their social standing
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\subsection{Demo time?}
+\begin{frame}{Demo time?}
+  \begin{itemize}
+    \item One second while I set things up...
+  \end{itemize}
+\end{frame}
+
+\section{End}
+\subsection{Sources}
+\begin{frame}{Sources}
+  \begin{thebibliography}{19}
+    \bibitem{1} \url{https://github.com/gatesphere/eloworld}
+    \bibitem{2} \url{http://en.wikipedia.org/wiki/Intelligent_agent}
+    \bibitem{3} \url{http://en.wikipedia.org/wiki/Social_capital}
+    \bibitem{4} \url{http://en.wikipedia.org/wiki/Social_group}
+    \bibitem{5} \url{http://en.wikipedia.org/wiki/Elo_rating_system}
+  \end{thebibliography}
+\end{frame}
+
+\subsection{Any questions?}
+\begin{frame}{Any questions?}
+  \begin{itemize}
+    \item Feel free to ask.
+  \end{itemize}
+\end{frame}
+
+\end{document}
